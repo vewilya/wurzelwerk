@@ -1,0 +1,53 @@
+{
+  "version": 6,
+  "configurePresets": [
+    {
+      "name": "base",
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/${presetName}"
+    },
+    {
+      "name": "dev",
+      "inherits": "base",
+      "displayName": "Debug with tests, benchmarks and sanitizers",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_SANITIZERS": "ON",
+        "BUILD_BENCHMARKS": "ON"
+      }
+    },
+    {
+      "name": "release",
+      "inherits": "base",
+      "displayName": "Optimized build with benchmarks",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Release", "BUILD_BENCHMARKS": "ON" }
+    },
+    {
+      "name": "coverage",
+      "inherits": "base",
+      "displayName": "Debug with coverage report",
+      "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug", "ENABLE_COVERAGE": "ON" }
+    },
+    {
+      "name": "ci",
+      "inherits": "base",
+      "displayName": "Everything on, used by GitHub Actions",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_SANITIZERS": "ON",
+        "ENABLE_CLANG_TIDY": "ON",
+        "BUILD_BENCHMARKS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "dev", "configurePreset": "dev" },
+    { "name": "release", "configurePreset": "release" },
+    { "name": "coverage", "configurePreset": "coverage" },
+    { "name": "ci", "configurePreset": "ci" }
+  ],
+  "testPresets": [
+    { "name": "dev", "configurePreset": "dev", "output": { "outputOnFailure": true } },
+    { "name": "ci", "configurePreset": "ci", "output": { "outputOnFailure": true } }
+  ]
+}

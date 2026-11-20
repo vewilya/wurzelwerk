@@ -1,0 +1,47 @@
+[
+  {
+    "label": "dev: build + test",
+    "command": "cmake --preset dev && cmake --build --preset dev && ctest --preset dev",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "dev: build",
+    "command": "cmake --preset dev && cmake --build --preset dev",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "dev: run app",
+    "command": "cmake --build --preset dev && ./build/dev/data_structures",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "release: run benchmarks",
+    "command": "cmake --preset release && cmake --build --preset release && ./build/release/stack_benchmarks",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "coverage: report",
+    "command": "cmake --preset coverage && cmake --build --preset coverage --target coverage && open build/coverage/coverage-html/index.html",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "docs: build + open",
+    "command": "cmake --build --preset dev --target docs && open build/dev/docs/html/index.html",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "format",
+    "command": "cmake --build --preset dev --target format",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "ci: run all checks locally",
+    "command": "cmake --preset ci && cmake --build --preset ci && ctest --preset ci && cmake --build --preset ci --target format-check",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  },
+  {
+    "label": "clean",
+    "command": "rm -rf build",
+    "cwd": "$ZED_WORKTREE_ROOT"
+  }
+]
