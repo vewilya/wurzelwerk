@@ -1,6 +1,10 @@
 name: CI
 
-on: [push, pull_request]
+# PRs run via pull_request; push only for master, so PR branches don't run twice.
+on:
+  push:
+    branches: [master]
+  pull_request:
 
 jobs:
   build-and-test:
