@@ -16,9 +16,7 @@ bool stack_push(Stack *stack, int value) {
     return true;
 }
 
-bool stack_is_empty(Stack* stack) {
-    return stack->pointer == 0;
-}
+bool stack_is_empty(Stack *stack) { return stack->pointer == 0; }
 
 int stack_pop(Stack *stack) {
     assert(!stack_is_empty(stack));
@@ -28,5 +26,5 @@ int stack_pop(Stack *stack) {
 
 void stack_destroy(Stack **stack) {
     free(*stack);
-     *stack = NULL;
+    *stack = NULL;
 }

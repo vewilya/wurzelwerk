@@ -19,7 +19,7 @@ extern "C" {
 
 Stack *stack_init(void);
 bool stack_push(Stack *stack, int value);
-bool stack_is_empty(Stack* stack);
+bool stack_is_empty(Stack *stack);
 int stack_pop(Stack *stack);
 void stack_destroy(Stack **stack);
 

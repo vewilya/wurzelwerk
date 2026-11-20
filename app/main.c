@@ -1,10 +1,9 @@
 #include <assert.h>
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "stack/stack.h"
-
 
 int main(void) {
     Stack *stack = stack_init();
