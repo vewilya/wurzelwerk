@@ -1,0 +1,32 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build-and-test:
+    # Pinned LTS image instead of ubuntu-latest so the toolchain doesn't shift under us.
+    runs-on: ubuntu-24.04
+    env:
+      CC: clang
+      CXX: clang++
+      # Major version of clang-format; keep in sync with the local dev machine.
+      # renovate: datasource=github-releases depName=llvm/llvm-project
+      LLVM_VERSION: "23"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            cmake clang clang-tidy libgtest-dev libbenchmark-dev doxygen
+          # Ubuntu only ships clang-format 18, whose output differs from newer versions.
+          # Pull it from LLVM's official apt repo instead.
+          wget -qO llvm.sh https://apt.llvm.org/llvm.sh
+          sudo bash llvm.sh "$LLVM_VERSION"
+          sudo apt-get install -y --no-install-recommends "clang-format-$LLVM_VERSION"
+      - name: Work around ASan crashes with high mmap ASLR entropy on newer kernels
+        run: sudo sysctl vm.mmap_rnd_bits=28
+      - run: cmake --preset ci "-DCLANG_FORMAT_EXE=/usr/bin/clang-format-$LLVM_VERSION"
+      - run: cmake --build --preset ci
+      - run: ctest --preset ci
+      - run: cmake --build --preset ci --target format-check

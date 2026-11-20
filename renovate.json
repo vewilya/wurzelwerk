@@ -1,0 +1,21 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "customManagers": [
+    {
+      "description": "Versions annotated with a '# renovate:' comment in workflow files",
+      "customType": "regex",
+      "managerFilePatterns": ["/^\\.github/workflows/.+\\.ya?ml$/"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>\\S+) depName=(?<depName>\\S+)\\s+\\w+: \"(?<currentValue>[^\"]+)\""
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "description": "Track only the LLVM major version from stable release tags (llvmorg-X.Y.Z, no RCs)",
+      "matchDepNames": ["llvm/llvm-project"],
+      "extractVersion": "^llvmorg-(?<version>\\d+)\\.\\d+\\.\\d+$"
+    }
+  ]
+}
