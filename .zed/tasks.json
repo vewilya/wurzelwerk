@@ -11,7 +11,7 @@
   },
   {
     "label": "dev: run app",
-    "command": "cmake --build --preset dev && ./build/dev/data_structures",
+    "command": "cmake --build --preset dev && ./build/dev/wurzelwerk",
     "cwd": "$ZED_WORKTREE_ROOT"
   },
   {

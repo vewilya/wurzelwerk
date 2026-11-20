@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
-project(data_structures VERSION 0.1.0 LANGUAGES C CXX)
+project(wurzelwerk VERSION 0.1.0 LANGUAGES C CXX)
 
 set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -18,11 +18,11 @@ include(cmake/compiler-options.cmake)
 add_library(stack_lib src/stack.c)
 target_include_directories(stack_lib PUBLIC include)
 
-add_executable(data_structures app/main.c)
-target_link_libraries(data_structures PRIVATE stack_lib)
+add_executable(wurzelwerk app/main.c)
+target_link_libraries(wurzelwerk PRIVATE stack_lib)
 
 if(ENABLE_CLANG_TIDY)
-  set_target_properties(stack_lib data_structures PROPERTIES
+  set_target_properties(stack_lib wurzelwerk PROPERTIES
     C_CLANG_TIDY "${clang_tidy_command}"
     CXX_CLANG_TIDY "${clang_tidy_command}")
 endif()
